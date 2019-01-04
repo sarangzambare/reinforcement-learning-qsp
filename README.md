@@ -44,3 +44,46 @@ Every reinforcement learning agent needs a measure of reward which is tries to m
 
 
 ![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/reward.png)
+
+
+In the above steps, we calculate the state at time (t+dt) by applying the time evolution operator to the state at time t :
+
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/time_evolution.png)
+
+
+When this algorithm is implemented, after many episodes, the Q-matrix thus formed will contain the right choices of magnetic field values at each time step. Keep in mind that the above algorithm is for constructing the Q-matrix only. To discern the optimal choices of fields at every time step, we select the action which has a higher Q-value of the two. If the Q-values are same for the two actions, then it doesn’t matter which action we take, and hence we choose randomly from the two actions.
+
+## Results:
+
+After calculating the value of the magnetic field at every time step, we finally calculate the fidelity of the prepared quantum state :
+
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/fidelity.png)
+
+The Q-learning algorithm mentioned above was implemented using Python. The total ramp time was set to be T = 3 and each time step was dt = 0.1. The learning rate was set to 0.2 and the initial and target quantum states used were the same as mentioned in the previous sections of this report. The values of magnetic field that we used for the bang-bang protocol were ±2. I ran the algorithm for a total of 10,000 episodes, and the **maximum fidelity I achieved was 99.5%**
+
+Any quantum state of a two level system can be represented as a 3D vector on the bloch sphere, where the state can be decomposed as:
+
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/state_complex.png)
+
+and the bloch vector is given by the following components:
+
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/bloch_vector.png)
+
+
+In this particular example, the start and final state I used can be decomposed as :
+
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/states_start_target.png)
+
+After plotting them on the bloch sphere, they look like so :
+
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/start_target.png)
+
+After being subjected to the driving protocol that the Q-learning algorithm learned, the maximum fidelity I got was 99.5%. The final prepared state looks like so:
+
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/start_target_final.png)
+
+
+The optimal values of magnetic field at each time step is illustrated in the following figure:
+
+
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/optimal_fields.png)
