@@ -5,8 +5,8 @@
 
 
 
-#       0  2  4  6  8  
-#       -  -  -  -  -    h=+2 
+#       0  2  4  6  8
+#       -  -  -  -  -    h=+2
 
 #       -  -  -  -  -    h=-2
 #		1  3  5  7  9
@@ -30,7 +30,7 @@ def ground_state(ham):
 		return eig_v[:,1]
 	else:
 		print "Error: Eigen values fishy"
-			
+
 
 
 def reward(current_state,t):
@@ -38,19 +38,19 @@ def reward(current_state,t):
 	if(t<(T-1)):
 		return 0
 	elif(t==(T-1)):
-		return abs(current_state.dot(final_state))**2		
+		return abs(current_state.dot(final_state))**2
 	else:
 		print "Time exceeded ramp time"
-		sys.exit(0)	
+		sys.exit(0)
 
 
 def evolve(current_state,ham,dt):
-	
+
 	return linalg.expm((-1j)*ham*dt).dot(current_state)
 
 
 def getX(state):
-	return state.dot(Sx.dot(state))					
+	return state.dot(Sx.dot(state))
 
 
 
@@ -60,7 +60,7 @@ dt = 1 		#time step size
 alpha = 0.2 #learning rate
 
 Sx =   np.array([[0,0.5],[0.5,0]])
-Sz =   np.array([[0.5,0],[0,-0.5]])	
+Sz =   np.array([[0.5,0],[0,-0.5]])
 up =   np.array([1,0])
 down = np.array([0,1])
 
@@ -80,36 +80,48 @@ EPISODES = 500
 random.seed(9030)
 
 
+class Qubit:
+	"Class for representing a single Qubit"
+
+	def __init__(self,theta,phi):
+		self.theta = theta
+		self.phi = phi
+		self.alpha = complex(cos(theta/2))
+		self.beta = complex(sin(theta/2)*cos(phi),sin(theta/2)*sin(phi))
+		self.vector = [alpha,beta]
+
+
+class Operator:
+	"Class for representing operators, in this case we have 2D space, so we have 2x2 matrix as operator, a and d are diagonal, b and c are off-diagonal"
+
+	def __init__(self,a,b,c,d):
+		self.a = a
+		self.b = b
+		self.c = c
+		self.d = d
+
+
+class State:
+	"Class for representing a Q-learning state, here we use time and the corresponding instanteneous magnetic field to represent a state"
+
+	def __init__(self,t,H):
+		self.t = t
+		self.H = H
+
+
+delta_t = 0.1
+delta_H = 0.1
+TOTAL_TIME = 5;
+
+
+def Q(state,action):
+	"Standard Q-Learner reward function"
+
+	print "state.t is %f" % state.t
 
 
 
 
-# current_episode = 0
-# while(current_episode < EPISODES):
-# 	t=0
-# 	state=0
-# 	current_qstate=start_state
-	
-# 	while(t<(T-1)):
-	
-# 		rand = random.random()
-# 		if(rand<0.5):
-# 			next_state = state+2 if (state%2==0) else state+1
-# 			#print "time is %d and reward is %f" % (t , reward(evolve(current_qstate,pos_ham,dt),t+dt))
-# 			Q[state,0] = Q[state,0] + alpha*(reward(evolve(current_qstate,pos_ham,dt),t+dt) + max(Q[next_state,0],Q[next_state,1]) - Q[state,0])
-# 			t+=dt
-# 			current_qstate = evolve(current_qstate,pos_ham,dt)
-# 			state = next_state
-
-# 		else:
-# 			next_state = state+3 if (state%2==0) else state+2
-# 			#print "time is %d and reward is %f" % (t,  reward(evolve(current_qstate,neg_ham,dt),t+dt))
-# 			Q[state,1] = Q[state,1] + alpha*(reward(evolve(current_qstate,neg_ham,dt),t+dt) + max(Q[next_state,0],Q[next_state,1]) - Q[state,1])
-# 			t+=dt
-# 			current_qstate = evolve(current_qstate,neg_ham,dt)
-# 			state=next_state
-
-# 	current_episode+=1	
 
 
 current_episode = 0
@@ -117,9 +129,9 @@ while(current_episode < EPISODES):
 	t=0
 	state=0
 	current_qstate=start_state
-	
+
 	while(t<(T-1)):
-	
+
 		rand = random.random()
 		#print "rand is %f" % rand
 		if(rand<0.5):
@@ -138,7 +150,7 @@ while(current_episode < EPISODES):
 			current_qstate = evolve(current_qstate,neg_ham,dt)
 			state=next_state
 
-	current_episode+=1	
+	current_episode+=1
 
 
 print Q
@@ -166,93 +178,4 @@ while((t+1)<T): 				#while(state!=((2*T/dt)-1) or state!=((2*T/dt)-2) ):
 
 
 
-print "Fidelity is %f" % abs(current_qstate.dot(final_state))**2 	
-
-
-
-
-#print abs(evolve(evolve(start_state,pos_ham,1),pos_ham,1).dot(final_state))**2
-
-#print abs(evolve(evolve(start_state,neg_ham,1),pos_ham,4).dot(final_state))**2
-
-
-
-
-
-
-
-
-
-
-#To do - 
-# Make compatible with float dt
-# Track Q-state and check if its following the grand circle
-# Try to animate the state after 10,100,500,1000,10000 iteration and show progress
-# Learn about bloch-sphere
-
-	
-
-	
-
-
-
-
-
-	# class Qubit:
-# 	"Class for representing a single Qubit"	
-
-# 	def __init__(self,theta,phi):
-# 		self.theta = theta
-# 		self.phi = phi
-# 		self.alpha = complex(cos(theta/2))
-# 		self.beta = complex(sin(theta/2)*cos(phi),sin(theta/2)*sin(phi))
-# 		self.vector = [alpha,beta]
-
-
-# class Operator:
-# 	"Class for representing operators, in this case we have 2D space, so we have 2x2 matrix as operator, a and d are diagonal, b and c are off-diagonal"
-
-# 	def __init__(self,a,b,c,d):
-# 		self.a = a
-# 		self.b = b
-# 		self.c = c
-# 		self.d = d
-
-
-# class State:
-# 	"Class for representing a Q-learning state, here we use time and the corresponding instanteneous magnetic field to represent a state"
-
-# 	def __init__(self,t,H):
-# 		self.t = t
-# 		self.H = H
-
-
-# delta_t = 0.1
-# delta_H = 0.1
-# TOTAL_TIME = 5;
-
-
-# def Q(state,action):
-# 	"Standard Q-Learner reward function"
-
-# 	print "state.t is %f" % state.t
-
-
-# state = State(0.1,0.1);
-
-# Q(state,4)	
-
-
-# ---------------------------------------------------------------------------------#
-
-
-
-# expm - linalg- numpy
-
-#  Eigen vector represented as (1+h.sigma/2)
-
-# Do bang bang protocol first
-
-					
-
-
+print "Fidelity is %f" % abs(current_qstate.dot(final_state))**2
