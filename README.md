@@ -5,4 +5,4 @@ This repository is a part of a project I undertook at the *Indian Institute of T
 
 In this particular demonstration, I keep things simple and assume that the quantum state in question is a two level system, and an arbitrary state can be represented as :
 
-![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcement-learning-qstate-preparation/master/png/state.png)
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/state.png)
