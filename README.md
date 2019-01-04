@@ -48,7 +48,7 @@ Every reinforcement learning agent needs a measure of reward which is tries to m
 
 In the above steps, we calculate the state at time (t+dt) by applying the time evolution operator to the state at time t :
 
-![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/time_evolution.png)
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/time_evolution_2.png)
 
 
 When this algorithm is implemented, after many episodes, the Q-matrix thus formed will contain the right choices of magnetic field values at each time step. Keep in mind that the above algorithm is for constructing the Q-matrix only. To discern the optimal choices of fields at every time step, we select the action which has a higher Q-value of the two. If the Q-values are same for the two actions, then it doesn’t matter which action we take, and hence we choose randomly from the two actions.
