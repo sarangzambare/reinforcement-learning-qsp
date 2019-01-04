@@ -87,3 +87,6 @@ The optimal values of magnetic field at each time step is illustrated in the fol
 
 
 ![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/optimal_fields.png)
+
+
+**An animated video of the agent learning to move towards the given final state can be found in the vid folder of the repository. It shows the agent's steps when its trained only for 100 episodes, vs when it is trained for 10,000 episodes.**
