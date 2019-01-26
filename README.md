@@ -17,6 +17,23 @@ The control parameter that I use is the magnetic field, which can be +2 or -2 (t
 
 where h(t) is the magnetic field and the control parameter.
 
+## Q-learning algorithm :
+
+Reinforcement learning is an area of machine learning inspired by behaviourist psychology, concerned with how software agents ought to take actions in an environment so as to maximize some notion of cumulative reward. The problem, due to its generality, is studied in many other disciplines, such as game theory, control theory, operations research etc. A specific type of reinforcement learning is the Watkins Q-learning algorithm. Q-learning algorithm has the following constituents:
+
+1. **Agent**: An agent can be thought of as an imaginary being, taking all the actions and experi- encing rewards in the process. Depending on the formulation of the problem, an agent’s aim is to minimise or maximise its reward, and in doing so, take the optimal course of actions.
+2. **State**: Any Q-learning problem should have a starting state and a terminal state, along with a number of intermediate states. Any action taken by the agent can change the state of the system. States can be thought of as stepping stones that the agent has to walk through to get to the final state from the initial state.
+3. **Action**: Corresponding to each state, there is a set of possible actions that the agent can take. The agent’s aim is to select the right action at each state so as to optimise reward.
+4. **Reward**: Corresponding to each state and action pair, a reward is associated.
+5. **Q function**: Each state and action pair has a **Q(s, a)** associated. The Q-value can be interpreted as the selectibility of a particular action at a given state. Actions with higher Q-value are favoured over actions with lower Q-value. The Q function is given by
+
+![alt text](https://raw.githubusercontent.com/sarangzambare/reinforcent-learning-qstate-preparation/master/png/q-equation.png)
+
+where
+• **s** is the state
+• **a** is the action
+• **R(s, a)** is the reward function
+• **s'** is the next state, i.e. the state resulting from taking action a at state s
 
 ### Formulation of the problem :
 
